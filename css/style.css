@@ -23,10 +23,13 @@ h1{
 #header-container{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 .items{
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .items p{
     margin: 1rem;
@@ -38,6 +41,11 @@ h1{
 .items p a:hover{
     text-decoration: underline;
 }
+#pp{
+    margin: .5rem;
+    margin-top: 0;
+}
+
 #log{
     margin: 2rem;
 }
@@ -51,29 +59,183 @@ form{
 }
 .left{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
 }
 fieldset{
-    margin: .4rem;
-    padding: .2rem;
+    margin-top: 2rem;
 }
+
+/* was 25%; let it be responsive but not huge */
 .num-input{
-    width: 25%;
+    width: min(320px, 100%);
 }
+
 h3{
     color: var(--lightgrey);
+    margin: 1rem;
+    margin-bottom: 0;
 }
-.right{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: wrap;
+
+/* ====== EXERCISE CARDS LAYOUT (Grid) ====== */
+.right, #right{
+    /* switch from flex to grid */
+    display: grid;
+    grid-template-columns: 1fr; /* <390px: 1 col */
+    gap: 12px;
+    width: 100%;
+    margin: 0;        /* avoid left “hole” */
+    padding: 0;
+    justify-items: start;
+    align-items: start;
 }
+
+/* Cards */
+.exPair{
+    /* remove old margins that caused the first-column gap */
+    margin: 0 !important;
+    border: 1px solid var(--darkgrey);
+    border-radius: 6px;
+    padding: 10px;
+    background: transparent;
+}
+
+/* Exercise title / sets inputs spacing (keep from your original) */
 .ex{
-    margin: .3rem;
     margin-bottom: 0;
 }
 .sets{
-    margin: .3rem;
+    /*margin: .3rem;*/
     margin-bottom: 0;
+}
+
+/* Inputs fill their card and shrink nicely */
+.exPair input[type="text"],
+.exPair input[type="number"]{
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+}
+
+/* Keep Weight | Reps paired in two columns inside each card */
+.weight_set{
+    margin-top: .4rem;
+    margin-left: 0;           /* remove old left indent */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.base-data{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ====== BREAKPOINTS FOR 1 / 2 / 3 COLUMNS ====== */
+/* 390–767.98px: 2 columns */
+@media (min-width: 390px) and (max-width: 767.98px){
+    .right, #right{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ≥768px: 3 columns */
+@media (min-width: 768px){
+    .right, #right{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ---- Remove old, no-longer-used rules ----
+   (They existed in your file and caused issues.)
+   .right { display:flex; ... }
+   .exPair { margin:.4rem; }
+   .weight_set { margin-left:1rem; }
+   .exercisesContainer media rules
+*/
+/* Kill the empty placeholder so it can't occupy a column/slot */
+#right > .exercisesContainer{
+  display: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  width: 0 !important;
+}
+
+
+#submit-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+
+/* Your button */
+#submit{
+  position: relative;
+  background: var(--black);
+  color: #fff;
+  border: 0;
+  padding: .4rem .9rem;
+  font-size: larger;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* If you kept span borders earlier, kill them so they don't clash */
+#log-span, #workout-span { border: 0; }
+
+/* Animatable custom property (phase of the sweep) */
+@property --phase {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0turn;
+}
+
+/* Flowing “corner brackets” */
+#submit::after{
+  content: "";
+  position: absolute;
+  inset: -2px;                 /* border thickness outside */
+  --thickness: 2px;
+  --c: #fff;
+  --segment: .12turn;          /* length of each bracket (≈43°) */
+  --gap: .5turn;               /* 180° apart */
+  --phase: 0turn;              /* animated 0 → .25turn on hover */
+
+  /* two conic segments 180° apart; rotate them by --phase */
+  background:
+    conic-gradient(from var(--phase), var(--c) 0 var(--segment), transparent var(--segment) 1turn),
+    conic-gradient(from calc(var(--phase) + var(--gap)), var(--c) 0 var(--segment), transparent var(--segment) 1turn);
+
+  /* show only a ring (mask the inside) */
+  padding: var(--thickness);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0) padding-box;
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  /* animate once on hover */
+  animation: flowCorners 1s ease forwards paused;
+}
+
+/* trigger */
+#submit:hover::after{
+  animation-play-state: running;
+}
+
+@keyframes flowCorners{
+  to { --phase: .25turn; }     /* 90° rotation → brackets “switch corners” */
+}
+
+/* Optional: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #submit::after{ animation: none; --phase: .25turn; }
 }
