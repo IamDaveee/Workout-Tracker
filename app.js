@@ -6,8 +6,8 @@ let numberOfEx = 0;
 
 function createExerciseBlock(i) {
   const exerciseFieldset = document.createElement("fieldset");
-  exerciseFieldset.id = `exPair${i}`
-  exerciseFieldset.className="exPair";
+  exerciseFieldset.id = `exPair${i}`;
+  exerciseFieldset.className = "exPair";
 
   const exerciseField = document.createElement("input");
   exerciseField.type = "text";
@@ -21,31 +21,29 @@ function createExerciseBlock(i) {
   setsField.className = "sets";
   setsField.placeholder = "Number of Sets";
   setsField.min = 1;
-  // keep original id in case CSS/logic rely on it
   setsField.id = `ex${i}`;
 
   const extraContainer = document.createElement("div");
-  // keep original misspelled class for compatibility + add corrected alias
   extraContainer.className = `extraConatiner${i} extraContainer${i}`;
 
-  // --- Incremental set rows (preserve existing values) ---
-  const createSetRow = (j) => {
+  // --- helper now correctly includes exercise index in names ---
+  const createSetRow = (i, j) => {
     const extraFieldSet = document.createElement("fieldset");
     extraFieldSet.className = "weight_set";
 
     const extraWeight = document.createElement("input");
     extraWeight.type = "number";
-    extraWeight.name = `set${j}_w${j}`; // preserve naming
+    extraWeight.name = `set${i}_w${j}`;   // e.g. set1_w1
     extraWeight.className = "weight";
     extraWeight.placeholder = `Weight - ${j}`;
-    extraWeight.min = 1;
+    extraWeight.min = 0;
 
     const extraReps = document.createElement("input");
     extraReps.type = "number";
-    extraReps.name = `set${j}_r${j}`; // preserve naming
+    extraReps.name = `set${i}_r${j}`;     // e.g. set1_r1
     extraReps.className = "reps";
     extraReps.placeholder = `Reps - ${j}`;
-    extraReps.min = 1;
+    extraReps.min = 0;
 
     extraFieldSet.appendChild(extraWeight);
     extraFieldSet.appendChild(extraReps);
@@ -56,14 +54,12 @@ function createExerciseBlock(i) {
     const desired = Math.max(0, parseInt(setsField.value, 10) || 0);
     const existing = extraContainer.querySelectorAll(".weight_set").length;
 
-    // Add missing rows
     if (desired > existing) {
       for (let j = existing + 1; j <= desired; j++) {
-        extraContainer.appendChild(createSetRow(j));
+        extraContainer.appendChild(createSetRow(i, j)); // <-- pass i, j
       }
     }
 
-    // Remove extras from the end only
     if (desired < existing) {
       for (let j = existing; j > desired; j--) {
         const last = extraContainer.lastElementChild;
@@ -75,7 +71,6 @@ function createExerciseBlock(i) {
   exerciseFieldset.appendChild(exerciseField);
   exerciseFieldset.appendChild(setsField);
   exerciseFieldset.appendChild(extraContainer);
-
   return exerciseFieldset;
 }
 

@@ -1,0 +1,35 @@
+:root{
+    --darkgreen: #61892f;
+    --lightgreen: #91d137;
+    --black: #181b1d;
+    --darkgrey: #474b4f;
+    --lightgrey: #878d91;
+    --white: #ffffff;
+}
+body{
+    background-color: var(--black);
+    color: var(--white);
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#container{
+    height: 100vh;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+fieldset{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    padding: .3rem;
+}
+#form-container{
+    border: white 2px solid;
+    border-radius: .5rem;
+}
