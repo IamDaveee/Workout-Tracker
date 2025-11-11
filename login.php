@@ -13,16 +13,22 @@
     <div id="container" class="container">
         <div id="form-container" class="container">
             <form action="/includes/login.inc.php" method="POST">
-                <fieldset>
+                <fieldset class="fieldset-header">
                     <legend><h2>Login</h2></legend>
                 </fieldset>
-                <fieldset>
+                <fieldset class="fieldset">
                     <label for="email">E-Mail Address</label>
-                    <input type="text" name="email" class="text-input" id="email" placeholder="email" required>
+                    <input type="text" name="email" class="text-input" id="email" placeholder="Email" required>
                 </fieldset>
-                <fieldset>
-                <label for="password">Password</label>
+                <fieldset class="fieldset" id="password-container">
+                    <label for="password">Password
+                        <a href="#" class="float-right">Forgot Password?</a>
+                    </label>
                     <input type="password" name="password" id="password" class="text-input" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="remember-container">
+                    <input type="checkbox" name="remember">
+                    <label for="remember">Remember Me</label>
                 </fieldset>
             </form>
         </div>
