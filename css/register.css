@@ -1,13 +1,8 @@
-:root{
-    --darkgreen: #61892f;
-    --lightgreen: #91d137;
-    --black: #181b1d;
-    --darkgrey: #474b4f;
-    --lightgrey: #878d91;
-    --white: #ffffff;
-}
-body{
-    background-color: var(--black);
-    color: var(--white);
-}
+@import url('login.css');
+
+/* Small register-specific tweaks can go here. We import `login.css` first
+    so all shared styles apply correctly. */
+
+/* Example tweak: slightly wider card for register (more fields) */
+#form-container{ max-width: 640px; }
 

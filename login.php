@@ -1,3 +1,8 @@
+<?php
+    require_once 'includes/login_view.inc.php';
+    require_once 'includes/config_session.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +74,14 @@
                 <fieldset id="register">
                     <a id="register-link" href="register.php">Don't have an account?</a>
                 </fieldset>
+
+                <fieldset>
+                    <?php
+                        check_login_errors();
+                    ?>
+                </fieldset>
             </form>
+            
         </div>
     </div>
 

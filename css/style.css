@@ -242,3 +242,14 @@ h3{
 @media (prefers-reduced-motion: reduce){
   #submit::after{ animation: none; --phase: .25turn; }
 }
+
+#login-status{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+#login-link{
+    color: var(--lightgreen);
+    text-decoration: underline;
+}

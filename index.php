@@ -1,3 +1,7 @@
+<?php
+    require_once './includes/config_session.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +29,17 @@
             </div>
         </div>
     </header>
+
+    <div class="container" id="login-status">
+        <?php
+            if (isset($_SESSION["user_username"])) {
+                echo "<p>Welcome back, " . $_SESSION["user_username"] . "!</p>";
+            } else {
+                echo "<p>Please <a href='login.php' id='login-link'>log in</a> to access all features.</p>";
+            }
+        ?>
+    </div>
+    
 
     <section id="log" class="section">
         <div class="container" id="log-container">

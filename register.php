@@ -1,3 +1,8 @@
+<?php
+    require_once("includes/register_view.inc.php");
+    require_once("includes/config_session.inc.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +17,9 @@
     
     <div id="container" class="container">
         <div id="form-container" class="container">
+
             <form action="./includes/register.inc.php" method="POST">
+
                 <fieldset class="fieldset-header">
                     <legend><h2>Register</h2></legend>
                 </fieldset>
@@ -97,7 +104,15 @@
                 <fieldset id="register">
                     <a id="register-link" href="login.php">Already have an account? Log in</a>
                 </fieldset>
+
+                <fieldset>
+                    <?php
+                        check_signup_errors();
+                    ?>
+                </fieldset>
+                
             </form>
+
         </div>
     </div>
 
