@@ -111,6 +111,7 @@ try {
     // 3) Log the user in via PHP session
     $_SESSION['user_id']   = $userId;
     $_SESSION['user_username']  = $username;
+    $_SESSION['user_email'] = $email;
     $_SESSION['logged_in'] = true;
     
     // 4) Regenerate session ID for security (same as register flow)

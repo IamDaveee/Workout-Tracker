@@ -136,7 +136,7 @@ async function handleGoogleOAuthCallback() {
     console.log("PHP response:", data);
 
     if (data.success) {
-      window.location.href = "php_signup-login/index.php"; // redirect to dashboard
+      window.location.href = "./index.php"; // redirect to dashboard
     } else {
       // If the server included debug_output, log it for visibility
       if (data.debug_output) console.error("Server debug output:", data.debug_output);
