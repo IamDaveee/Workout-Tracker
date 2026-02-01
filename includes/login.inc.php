@@ -68,6 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $_SESSION['last_regeneration'] = time();
 
+        //get the presets of the user
+        get_user_preset($pdo, $_SESSION["user_id"]);
+
         header("location: ../index.php?login=success");
 
         $pdo  = null;

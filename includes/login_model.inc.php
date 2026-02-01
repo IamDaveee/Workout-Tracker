@@ -93,3 +93,32 @@ function delete_token_by_selector(object $pdo, string $selector): void {
     $stmt->bindParam(':selector', $selector);
     $stmt->execute();
 }
+
+function update_user(object $pdo, int $userId, string $username, string $email): void {
+    $query = "UPDATE users SET username = :username, email = :email WHERE user_id = :uid;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':email',    $email);
+    $stmt->bindParam(':uid',      $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+function get_user_preset(PDO $pdo, int $userId): void {
+    $query = "SELECT name FROM exercise WHERE user_id = :uid;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindValue(':uid', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $count = 0;
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $count++;
+        $_SESSION["exercise{$count}-id"] = $row["exercise_id"];
+        $_SESSION["exercise{$count}-name"] = $row["name"];
+        $_SESSION["exercise{$count}-type"] = $row["type"];
+        $_SESSION["exercise{$count}-NOEx"] = $row["number_of_exercises"];
+        $_SESSION["exercise{$count}-note"] = $row["note"];
+    }
+
+    $_SESSION["numberOfPresets"] = $count;
+}

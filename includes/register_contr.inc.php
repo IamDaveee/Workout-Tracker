@@ -10,6 +10,14 @@ function is_input_emptiy(string $username, string $pwd, string $email){
         return false;
     }
 }
+function is_empty_secondary(string $username, string $email){
+    if (empty($username) && empty($email)) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 function is_terms_unchecked(bool $terms){
     if (!$terms) {

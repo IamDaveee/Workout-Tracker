@@ -21,7 +21,7 @@ function createExerciseBlock(i) {
   setsField.className = "sets";
   setsField.placeholder = "Number of Sets";
   setsField.min = 1;
-  setsField.id = `ex${i}`;
+  setsField.id = `ex${i}numberOfSets`;
 
   const extraContainer = document.createElement("div");
   extraContainer.className = `extraConatiner${i} extraContainer${i}`;
