@@ -111,7 +111,11 @@
                     <fieldset class="base-data">
                         <label for="preset">Preset</label>
                         <select name="preset" id="preset">
-                            <?php
+                        <?php
+                            if (!isset($_SESSION["user_username"])) {
+                                echo '<option value="" disabled selected>No Login Found</option>';
+                            }
+                            else {
                                 $count=$_SESSION["numberOfPresets"];
                                 if ($count>0) {
                                     for ($i=1; $i <= $count; $i++) { 
@@ -120,8 +124,7 @@
                                 } else {
                                     echo '<option value="" disabled selected>No Presets Found</option>';
                                 }
-                            ?>
-                            
+                            }?>
                         </select>
                     </fieldset>
                     <fieldset class="base-data">
